@@ -75,7 +75,7 @@ X_test = X_test2
 
 # Fitting Model to the Training Set
 from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression(random_state = 0, penalty = 'l1')
+classifier = LogisticRegression(random_state = 0, penalty = 'l2')
 classifier.fit(X_train, y_train)
 
 # Predicting Test Set
@@ -113,7 +113,7 @@ pd.concat([pd.DataFrame(dataset.drop(columns = 'user').columns, columns = ["feat
 from sklearn.model_selection import GridSearchCV
 
 # Select Regularization Method
-penalty = ['l1', 'l2']
+penalty = ['l2']
 
 # Create regularization hyperparameter space
 C = [0.001, 0.01, 0.1, 1, 10, 100, 1000]
@@ -139,7 +139,7 @@ rf_best_accuracy, rf_best_parameters
 ## Grid Search (Round 2)
 
 # Select Regularization Method
-penalty = ['l1', 'l2']
+penalty = ['l2']
 
 # Create regularization hyperparameter space
 C = [0.1, 0.5, 0.9, 1, 2, 5]
@@ -170,5 +170,5 @@ grid_search.best_score_
 final_results = pd.concat([y_test, test_identity], axis = 1).dropna()
 final_results['predicted_reach'] = y_pred
 final_results = final_results[['user', 'enrolled', 'predicted_reach']].reset_index(drop=True)
-
-
+print(final_results.head())
+final_results.to_csv('final_results.csv')
